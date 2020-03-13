@@ -5,40 +5,63 @@ class Sutra extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      playing: false
+      text: null,
+      paused: false,
+      enabled: false
     }
   }
+
   componentDidMount() {
-    let activeDoublePress;
+    let activeDoublePress
     document.addEventListener('keyup', (event) => {
-      switch (event.key) {
-        case 'Shift': {
+      const { enabled } = this.state
+      switch (event.keyCode) {
+        case 16: // shift
           if (activeDoublePress) {
-            console.log('double')
             this.setState({
-              playing: true
+              text: this.getText(),
+              enabled: true,
+              paused: false
             })
-            } else {
-              activeDoublePress = true
-              setTimeout(() => activeDoublePress = false, 500)
+          } else {
+            activeDoublePress = true
+            setTimeout(() => {
+              activeDoublePress = false
+            }, 500)
+
+            if (enabled) {
+              this.setState((prevState) => {
+                return {
+                  paused: !prevState.paused
+                }
+              })
             }
           }
-          case 'Escape': {
-            this.setState({
-              playing: false
-            })
-          }
-        }
-      });
-    }
-
-    render() {
-      const text = document.getSelection().toString()
-      console.log(text)
-      return (
-        <Fast text={text} style={{ display: this.state.playing ? 'block' : 'none' }} {...this.props} playing={this.state.playing} />
-      )
-    }
+          break
+        case 27: // escape
+          this.setState({
+            text: null,
+            enabled: false
+          })
+          break
+      }
+      event.preventDefault()
+    })
   }
 
-  export default Sutra;
+  getText() {
+    return document.getSelection().toString()
+  }
+
+  render() {
+    const { enabled, paused, text } = this.state
+    if (!enabled || !text || typeof text !== 'string') {
+      return (<div />)
+    }
+    return (
+      <Fast {...this.props} text={text} playing={!paused} />
+    )
+  }
+}
+
+export default Sutra

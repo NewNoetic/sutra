@@ -59,7 +59,8 @@ module.exports = {
       entries: {
         contentScript: 'injected-content',
         extensionPage: 'popup'
-      }
+      },
+      reloadPage: true
     })
   ]
 }

@@ -19,11 +19,12 @@
     }
   ],
   "options_page": "options.html",
-  "browser_action": {
-    "default_title": "Sutra",
-    "default_popup": "popup.html",
-    "default_icon": {
-      "128": "images/icon128.png"
+  "commands": {
+    "activate": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      },
+      "description": "Activate Sutra"
     }
   },
   "icons": {

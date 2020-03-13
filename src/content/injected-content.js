@@ -9,7 +9,7 @@ import '../utils/jquery.js'
 /* Remember, you can't import css because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
 const render = (component) => {
-  ReactDOM.render(component, document.getElementById('injected-content'))
+  ReactDOM.render(component, document.getElementById('sutra-injected-content'))
 }
 
 window.onload = async () => {
@@ -18,7 +18,7 @@ window.onload = async () => {
   // if (disabledDomains.filter(dd => window.location.hostname.includes(dd)).length > 0) { return }
 
   const wrapper = document.createElement('div')
-  wrapper.id = 'injected-content'
+  wrapper.id = 'sutra-injected-content'
   document.body.prepend(wrapper)
   render(<Sutra />)
 
