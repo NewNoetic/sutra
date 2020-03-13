@@ -50,7 +50,15 @@ class Sutra extends React.Component {
   }
 
   getText() {
-    return document.getSelection().toString()
+    var text = document.getSelection().toString()
+    if (!text) {
+      const paragraph = document.querySelector('p:hover')
+      if (paragraph) {
+        text = paragraph.textContent
+      }
+    }
+
+    return text
   }
 
   render() {
