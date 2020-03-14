@@ -3,13 +3,7 @@
 /* eslint-disable camelcase */
 const assert = require('assert')
 const fs = require('fs')
-const path = require('path')
 const chromeWebstore = require('./chrome-webstore')
-const flattenDeep = require('lodash/flattenDeep')
-const manifest = require('../src/manifest.json')
-const coda = require('./coda')
-const gitWebext = require('simple-git/promise')(path.join(__dirname, '..'))
-const gitServer = require('simple-git/promise')(path.join(__dirname, '../../deepcheck-server'))
 
 require('dotenv').config()
 
