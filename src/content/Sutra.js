@@ -7,22 +7,23 @@ class Sutra extends React.Component {
     this.state = {
       text: null,
       paused: false,
-      enabled: false,
-      speed: 300
+      enabled: false
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     let activeDoublePress
-    document.addEventListener('keyup', (event) => {
+    document.addEventListener('keyup', async (event) => {
       const { enabled } = this.state
       switch (event.keyCode) {
         case 16: // shift
           if (activeDoublePress) {
+            const { speed } = await browser.storage.sync.get(['speed'])
             this.setState({
               text: this.getText(),
               enabled: true,
-              paused: false
+              paused: false,
+              speed: speed || 300
             })
           } else {
             activeDoublePress = true

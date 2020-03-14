@@ -26,6 +26,7 @@ browser.runtime.onInstalled.addListener(async () => {
 
   await browser.storage.sync.set({
     enabled: true,
+    speed: 300,
     clientId: uuidv4(), // generate new id for each installation
     checkUrl
   })

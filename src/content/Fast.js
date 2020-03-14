@@ -184,8 +184,9 @@ Fast.propTypes = {
 }
 
 Fast.defaultProps = {
-  wpm: 250,
-  startTimeout: 800,
+  normalized: true,
+  wpm: 300,
+  startTimeout: 1000,
   playing: false,
   stop: false,
   onStart: null,
