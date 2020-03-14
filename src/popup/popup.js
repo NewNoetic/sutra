@@ -39,7 +39,7 @@ class Popup extends React.Component {
           <label htmlFor="select-speed">Speed</label>
           <select className="form-control" id="select-speed" autoFocus value={speed} onChange={(event) => {
             this.setState({
-              speed: event.target.value
+              speed: parseInt(event.target.value)
             })
           }}>
             <option>200</option>
