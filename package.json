@@ -2,17 +2,80 @@
   "name": "sutra",
   "author": "Sidhant Gandhi",
   "version": "1.0.0",
+  "description": "Efficiently absorb vast knowledge.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/newnoetic/sutra.git"
+  },
+  "scripts": {
+    "dev": "npm run clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
+    "clean": "rm -rf build/",
+    "version:patch": "node scripts/version.js patch",
+    "version:minor": "node scripts/version.js minor",
+    "version:major": "node scripts/version.js major",
+    "build": "npm run clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
+    "package": "cd build && zip -r $npm_package_name-$npm_package_version.zip *",
+    "deploy": "npm run build && npm run package && node scripts/deploy.js build/$npm_package_name-$npm_package_version.zip",
+    "storybook": "start-storybook -p 6006",
+    "build-sb": "build-storybook"
+  },
+  "license": "UNLICENSED",
+  "standard": {
+    "globals": [
+      "chrome"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
+  },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-autoprefixer": "0.2.x",
-    "grunt-contrib-clean": "0.5.x",
-    "grunt-contrib-coffee": "0.7.x",
-    "grunt-contrib-copy": "0.4.x",
-    "grunt-contrib-cssmin": "0.6.x",
-    "grunt-contrib-jade": "0.8.x",
-    "grunt-contrib-jshint": "0.6.x",
-    "grunt-contrib-stylus": "0.16.x",
-    "grunt-contrib-uglify": "^0.4.0",
-    "grunt-contrib-watch": "0.5.x"
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-destructuring": "^7.4.4",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.2.4",
+    "@storybook/addon-links": "^5.2.4",
+    "@storybook/addons": "^5.2.4",
+    "@storybook/react": "^5.2.4",
+    "@types/chrome": "0.0.89",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^2.1.1",
+    "dotenv": "^8.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "prop-types": "^15.7.2",
+    "simple-git": "^1.126.0",
+    "style-loader": "^1.0.0",
+    "webextension-polyfill": "^0.5.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.4.1",
+    "webpack-extension-reloader": "^1.1.1"
+  },
+  "dependencies": {
+    "@primer/octicons-react": "^9.2.0",
+    "core-js": "^3.2.1",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "regenerator-runtime": "^0.13.3",
+    "styled-components": "^4.4.0"
   }
 }
