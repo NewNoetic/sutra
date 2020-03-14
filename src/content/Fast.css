@@ -8,7 +8,6 @@
   top: 50%;
   left: 0;
   width: 100%;
-  height: 4rem;
   padding: 1.3rem 0;
   border-top: 10px solid #444;
   border-bottom: 10px solid #444;
@@ -20,7 +19,7 @@
 #fast::before, #fast::after {
   content: '';
   position: absolute;
-  left: 40%;
+  left: 50%;
   height: 0.8rem;
   width: 10px;
   margin-left: -1px;
@@ -42,7 +41,7 @@
 
 #fast .leftSide-fast {
   display: table-cell;
-  width: 40%;
+  width: 50%;
   text-align: right;
 }
 
@@ -52,16 +51,16 @@
   text-align: left;
 }
 
-#fast .timeoutBlock-fast {
+#fast .dimmer-fast {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0,0.1);
-  transform-origin: 40%;
+  background-color: rgba(0,0,0,0.8);
+  transform-origin: 50%;
 }
 
-#fast .timeoutBlockHidden-fast {
+#fast .dimmer-hidden-fast {
   transform: scaleX(0);
 }

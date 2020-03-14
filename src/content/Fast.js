@@ -162,7 +162,7 @@ class Fast extends React.Component {
           word && this.props.startTimeout &&
           <div
             style={{ transition: `transform linear ${this.props.startTimeout}ms` }}
-            className={playing ? 'timeoutBlockHidden-fast' : 'timeoutBlock-fast'}
+            className={playing ? 'dimmer-hidden-fast' : 'dimmer-fast'}
           ></div>
         }
       </div>

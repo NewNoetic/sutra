@@ -7,7 +7,8 @@ class Sutra extends React.Component {
     this.state = {
       text: null,
       paused: false,
-      enabled: false
+      enabled: false,
+      speed: 300
     }
   }
 
@@ -44,6 +45,12 @@ class Sutra extends React.Component {
             enabled: false
           })
           break
+        case 18: // left
+          this.setState((prevState) => {
+            const spd = (prevState.speed % 1000) + 100
+            return { speed: spd }
+          })
+          break
       }
       event.preventDefault()
     })
@@ -62,12 +69,20 @@ class Sutra extends React.Component {
   }
 
   render() {
-    const { enabled, paused, text } = this.state
+    const { enabled, paused, text, speed } = this.state
     if (!enabled || !text || typeof text !== 'string') {
       return (<div />)
     }
     return (
-      <Fast {...this.props} text={text} playing={!paused} />
+      <Fast
+        {...this.props}
+        wpm={speed}
+        text={text}
+        playing={!paused}
+        onStop={() => {
+          this.setState({ enabled: false, text: null })
+        }}
+      />
     )
   }
 }
