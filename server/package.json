@@ -11,6 +11,9 @@
   },
   "author": "Sidhant Gandhi",
   "license": "UNLICENSED",
+  "engines": {
+    "node": "12.x.x"
+  },
   "dependencies": {
     "unfluff": "^3.2.0"
   }

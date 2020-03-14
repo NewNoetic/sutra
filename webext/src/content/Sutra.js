@@ -19,8 +19,9 @@ class Sutra extends React.Component {
         case 16: // shift
           if (activeDoublePress) {
             const { speed } = await browser.storage.sync.get(['speed'])
+            const text = await this.getText()
             this.setState({
-              text: this.getText(),
+              text,
               enabled: true,
               paused: false,
               speed: speed || 300
@@ -57,14 +58,27 @@ class Sutra extends React.Component {
     })
   }
 
-  getText() {
+  async getText() {
     var text = document.getSelection().toString()
     if (!text) {
-      const paragraph = document.querySelector('p:hover')
-      if (paragraph) {
-        text = paragraph.textContent
-      }
+      const { extractEndpoint } = await browser.storage.sync.get(['extractEndpoint'])
+      const response = await fetch(extractEndpoint, {
+        method: 'POST',
+        body: JSON.stringify({ html: document.body.innerHTML }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        }
+      })
+      const json = await response.json()
+      text = json.text
     }
+    // if (!text) {
+    //   const paragraph = document.querySelector('p:hover')
+    //   if (paragraph) {
+    //     text = paragraph.textContent
+    //   }
+    // }
 
     return text
   }

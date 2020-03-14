@@ -5,6 +5,7 @@ const ExtensionReloader = require('webpack-extension-reloader')
 
 module.exports = {
   entry: {
+    background: './src/background/background.js',
     'injected-content': './src/content/injected-content.js',
     options: './src/options/options.js',
     popup: './src/popup/popup.js'

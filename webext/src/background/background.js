@@ -11,15 +11,15 @@ const setBadge = async (text) => {
 browser.runtime.onInstalled.addListener(async () => {
   console.log('Extension installed')
 
-  let checkUrl
+  let extractEndpoint
   const { installType } = await browser.management.getSelf()
   switch (installType) {
     case 'admin':
     case 'normal':
-      checkUrl = `${api}/check`
+      extractEndpoint = `${api}/extract`
       break
     case 'development':
-      checkUrl = 'http://localhost:3000/api/v1/check'
+      extractEndpoint = 'http://localhost:3000/api/v1/extract'
       await setBadge('DEV')
       break
   }
@@ -28,7 +28,7 @@ browser.runtime.onInstalled.addListener(async () => {
     enabled: true,
     speed: 300,
     clientId: uuidv4(), // generate new id for each installation
-    checkUrl
+    extractEndpoint
   })
   console.log('Initial storage synced')
 })
