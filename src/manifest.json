@@ -19,14 +19,6 @@
     }
   ],
   "options_page": "options.html",
-  "commands": {
-    "activate": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+S"
-      },
-      "description": "Activate Sutra"
-    }
-  },
   "icons": {
     "128": "images/icon128.png"
   },
