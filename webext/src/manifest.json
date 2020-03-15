@@ -12,18 +12,15 @@
     ],
     "persistent": false
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "browser-polyfill.js",
-        "injected-content.js"
-      ],
-      "run_at": "document_end"
+  "commands": {
+    "activate-sutra": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Activate Sutra"
     }
-  ],
+  },
   "browser_action": {
     "default_title": "Sutra",
     "default_popup": "popup.html",

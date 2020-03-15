@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "description": "Server for Sutra",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "now dev",
+    "stage": "now",
+    "deploy": "now --prod"
   },
   "repository": {
     "type": "git",

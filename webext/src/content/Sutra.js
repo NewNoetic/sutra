@@ -1,5 +1,6 @@
 import React from 'react'
 import Fast from './Fast'
+import browser from 'webextension-polyfill'
 
 class Sutra extends React.Component {
   constructor(props) {
@@ -12,26 +13,19 @@ class Sutra extends React.Component {
   }
 
   async componentDidMount() {
-    let activeDoublePress
+    const { speed } = await browser.storage.sync.get(['speed'])
+    const text = await this.getText()
+    this.setState({
+      text,
+      enabled: true,
+      paused: false,
+      speed: speed || 300
+    })
+
     document.addEventListener('keyup', async (event) => {
       const { enabled } = this.state
       switch (event.keyCode) {
-        case 16: // shift
-          if (activeDoublePress) {
-            const { speed } = await browser.storage.sync.get(['speed'])
-            const text = await this.getText()
-            this.setState({
-              text,
-              enabled: true,
-              paused: false,
-              speed: speed || 300
-            })
-          } else {
-            activeDoublePress = true
-            setTimeout(() => {
-              activeDoublePress = false
-            }, 500)
-
+        case 16: // shift to play/pause    
             if (enabled) {
               this.setState((prevState) => {
                 return {
@@ -39,23 +33,20 @@ class Sutra extends React.Component {
                 }
               })
             }
-          }
           break
-        case 27: // escape
+        case 27: // escape to exit
           this.setState({
             text: null,
             enabled: false
           })
           break
-        case 18: // left
-          this.setState((prevState) => {
-            const spd = (prevState.speed % 1000) + 100
-            return { speed: spd }
-          })
-          break
       }
       event.preventDefault()
     })
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup')
   }
 
   async getText() {
@@ -73,12 +64,6 @@ class Sutra extends React.Component {
       const json = await response.json()
       text = json.text
     }
-    // if (!text) {
-    //   const paragraph = document.querySelector('p:hover')
-    //   if (paragraph) {
-    //     text = paragraph.textContent
-    //   }
-    // }
 
     return text
   }

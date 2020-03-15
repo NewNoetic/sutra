@@ -33,6 +33,18 @@ browser.runtime.onInstalled.addListener(async () => {
   console.log('Initial storage synced')
 })
 
+browser.commands.onCommand.addListener(function(command) {
+  console.log('Command:', command);
+  switch (command) {
+    case 'activate-sutra':
+      chrome.tabs.executeScript({
+        file: 'injected-content.js'
+      });
+      break
+  }
+});
+
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  // const { payload, type } = request
+  const { payload, type } = request
+
 })
