@@ -22,10 +22,10 @@ class Sutra extends React.Component {
       speed: speed || 300
     })
 
-    document.addEventListener('keyup', async (event) => {
+    document.addEventListener('keydown', async (event) => {
       const { enabled } = this.state
       switch (event.keyCode) {
-        case 16: // shift to play/pause    
+        case 32: // space to play/pause    
             if (enabled) {
               this.setState((prevState) => {
                 return {
@@ -37,16 +37,13 @@ class Sutra extends React.Component {
         case 27: // escape to exit
           this.setState({
             text: null,
-            enabled: false
+            enabled: false,
+            paused: false
           })
           break
       }
       event.preventDefault()
     })
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keyup')
   }
 
   async getText() {
