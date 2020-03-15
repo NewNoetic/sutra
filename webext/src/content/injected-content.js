@@ -17,14 +17,9 @@ const render = (component) => {
   // if (!enabled) { return }
   // if (disabledDomains.filter(dd => window.location.hostname.includes(dd)).length > 0) { return }
 
-console.log('injecting sutra elements')
-
 let wrapper = document.getElementById(SUTRA_ELEMENT)
 
-console.log(`sutra wrapper: ${wrapper}`)
-
 if (!wrapper) {
-  console.log('adding sutra wrapper to document')
   wrapper = document.createElement('div')
   wrapper.id = SUTRA_ELEMENT
   document.body.prepend(wrapper)

@@ -9,8 +9,6 @@ const setBadge = async (text) => {
 }
 
 browser.runtime.onInstalled.addListener(async () => {
-  console.log('Extension installed')
-
   let extractEndpoint
   const { installType } = await browser.management.getSelf()
   switch (installType) {
@@ -30,11 +28,9 @@ browser.runtime.onInstalled.addListener(async () => {
     clientId: uuidv4(), // generate new id for each installation
     extractEndpoint
   })
-  console.log('Initial storage synced')
 })
 
 browser.commands.onCommand.addListener(function(command) {
-  console.log('Command:', command);
   switch (command) {
     case 'activate-sutra':
       chrome.tabs.executeScript({
