@@ -10,6 +10,32 @@ class Sutra extends React.Component {
       paused: false,
       enabled: false
     }
+
+    this.keydownHandler = this.keydownHandler.bind(this)
+  }
+
+  async keydownHandler(event) {
+    const { enabled } = this.state
+    switch (event.keyCode) {
+      case 32: // space to play/pause    
+          if (enabled) {
+            this.setState((prevState) => {
+              return {
+                paused: !prevState.paused
+              }
+            })
+          }
+          event.preventDefault()
+        break
+      case 27: // escape to exit
+        this.setState({
+          text: null,
+          enabled: false,
+          paused: false
+        })
+        event.preventDefault()
+        break
+    }
   }
 
   async componentDidMount() {
@@ -22,28 +48,11 @@ class Sutra extends React.Component {
       speed: speed || 300
     })
 
-    document.addEventListener('keydown', async (event) => {
-      const { enabled } = this.state
-      switch (event.keyCode) {
-        case 32: // space to play/pause    
-            if (enabled) {
-              this.setState((prevState) => {
-                return {
-                  paused: !prevState.paused
-                }
-              })
-            }
-          break
-        case 27: // escape to exit
-          this.setState({
-            text: null,
-            enabled: false,
-            paused: false
-          })
-          break
-      }
-      event.preventDefault()
-    })
+    document.addEventListener('keydown', this.keydownHandler)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.keydownHandler)
   }
 
   async getText() {
