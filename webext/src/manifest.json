@@ -1,6 +1,6 @@
 {
   "name": "Sutra",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Efficiently absorb vast knowledge",
   "permissions": [
     "activeTab",
