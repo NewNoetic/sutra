@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "unfluff": "^3.2.0"
+  },
+  "devDependencies": {
+    "now": "^17.0.4"
   }
 }

@@ -6,8 +6,19 @@
 
 ### Setup
 
+In `server/`:
+
 ```
 npm install
+npx now login # You may link to an existing Now project, or setup as a new one
+npm run start
+```
+
+In `webext/`:
+
+```
+npm install
+npm run start
 ```
 
 ### Icons
@@ -22,9 +33,11 @@ import Octicon, { ChevronRight } from '@primer/octicons-react'
 
 ## Deployment
 
+### Chrome Web Store
+
 > Please do not deploy your own version of this extension to any online distribution channel or store.
 
-`.env` in root:
+`.env` in `webext` root:
 
 ```
 # for publishing to the chrome web store
@@ -39,4 +52,18 @@ Bump version and push build to Chrom Web Store:
 ```
 npm run version:(major|minor|patch)
 npm run deploy
+```
+
+### Zeit Now (API)
+
+#### Staging
+
+```
+npx now
+```
+
+#### Production
+
+```
+npx now --prod
 ```
