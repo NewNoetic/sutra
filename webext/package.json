@@ -8,7 +8,7 @@
     "url": "git://github.com/newnoetic/sutra.git"
   },
   "scripts": {
-    "dev": "npm run clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
+    "start": "npm run clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
     "clean": "rm -rf build/",
     "version:patch": "node scripts/version.js patch",
     "version:minor": "node scripts/version.js minor",
@@ -16,8 +16,7 @@
     "build": "npm run clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
     "package": "cd build && zip -r $npm_package_name-$npm_package_version.zip *",
     "deploy": "npm run build && npm run package && node scripts/deploy.js build/$npm_package_name-$npm_package_version.zip",
-    "storybook": "start-storybook -p 6006",
-    "build-sb": "build-storybook"
+    "storybook": "start-storybook -p 6006"
   },
   "license": "UNLICENSED",
   "standard": {

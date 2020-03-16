@@ -4,7 +4,7 @@ const assert = require('assert')
 const fs = require('fs')
 const semver = require('semver')
 const path = require('path')
-const repo = require('simple-git/promise')(path.join(__dirname, '..'))
+const repo = require('simple-git/promise')(path.join(__dirname, '../..'))
 
 const main = async () => {
   const status1 = await repo.status()
@@ -16,13 +16,15 @@ const main = async () => {
   assert(release, argErrorMessage)
   assert(release.match(/(major|minor|patch)/g), argErrorMessage)
 
-  const manifest = path.join(__dirname, '../src/manifest.json')
-  const pkg = path.join(__dirname, '../package.json')
-  const packageLock = path.join(__dirname, '../package-lock.json')
-
   let nextVersion = null
 
-  const paths = [manifest, pkg, packageLock]
+  const paths = [
+    path.join(__dirname, '../src/manifest.json'),
+    path.join(__dirname, '../package.json'),
+    path.join(__dirname, '../package-lock.json'),
+    path.join(__dirname, '../../server/package.json'),
+    path.join(__dirname, '../../server/package-lock.json'),
+  ]
 
   paths.forEach((p) => {
     const file = fs.readFileSync(p)
@@ -44,10 +46,10 @@ const main = async () => {
   fs.writeFileSync(api, `module.exports = 'https://sutra.newnoetic.com/api/v${semver.major(nextVersion)}'\n`)
 
   await repo.add('.')
-  const commit1 = await repo.commit(nextVersion)
+  const commit = await repo.commit(nextVersion)
   await repo.addTag(nextVersion)
-  await repo.pushTags()
-  console.log(`\nBumped versions and commited/tagged\n: ${commit1.commit}).`)
+  // await repo.pushTags()
+  console.log(`\nBumped versions and commited/tagged\n: ${commit.commit}).`)
 }
 
 main().then()
