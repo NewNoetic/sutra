@@ -3,9 +3,9 @@
   "version": "1.0.2",
   "description": "Server for Sutra",
   "scripts": {
-    "start": "now dev",
-    "stage": "now",
-    "deploy": "now --prod"
+    "start": "npx now dev",
+    "stage": "npx now",
+    "deploy": "npx now --prod"
   },
   "repository": {
     "type": "git",

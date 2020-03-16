@@ -59,11 +59,11 @@ npm run deploy
 #### Staging
 
 ```
-npx now
+npm run stage
 ```
 
 #### Production
 
 ```
-npx now --prod
+npm run deploy
 ```
