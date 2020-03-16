@@ -4,7 +4,8 @@
   "description": "Efficiently absorb vast knowledge",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "contextMenus"
   ],
   "background": {
     "scripts": [

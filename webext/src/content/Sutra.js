@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Fast from './Fast'
 import browser from 'webextension-polyfill'
 
@@ -56,8 +57,13 @@ class Sutra extends React.Component {
   }
 
   async getText() {
-    var text = document.getSelection().toString()
-    if (!text) {
+    let text = this.props.text // if we passed in text via injected-content.js
+
+    if (!text) { // if text was selected on the page
+      text = document.getSelection().toString()
+    }
+
+    if (!text) { // extract main text from the page
       const { extractEndpoint } = await browser.storage.sync.get(['extractEndpoint'])
       const response = await fetch(extractEndpoint, {
         method: 'POST',
@@ -91,6 +97,14 @@ class Sutra extends React.Component {
       />
     )
   }
+}
+
+Sutra.defaultProps = {
+  text: null
+}
+
+Sutra.propTypes = {
+  text: PropTypes.string
 }
 
 export default Sutra

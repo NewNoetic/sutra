@@ -8,6 +8,24 @@ const setBadge = async (text) => {
   await browser.browserAction.setBadgeText({ text })
 }
 
+const activateSutra = (selection) => {
+  console.log('activating sutra')
+  const injectContent = () => {
+    chrome.tabs.executeScript({
+      file: 'injected-content.js'
+    });
+  }
+
+  if (selection && typeof selection === 'string') {
+    console.log(`calling inject content script with selection: ${selection}`)
+    chrome.tabs.executeScript({
+      code: `var sutraSelectedText = "${selection}";`
+    }, injectContent)
+  } else {
+    injectContent()
+  }
+}
+
 browser.runtime.onInstalled.addListener(async () => {
   let extractEndpoint
   const { installType } = await browser.management.getSelf()
@@ -22,6 +40,20 @@ browser.runtime.onInstalled.addListener(async () => {
       break
   }
 
+  chrome.contextMenus.onClicked.addListener((info) => {
+    switch(info.menuItemId) {
+      case 'sutra_activate':
+        activateSutra(info.selectionText)
+        break
+    }
+  })
+
+  browser.contextMenus.create({
+    id: "sutra_activate",
+    title: "Activate Sutra",
+    contexts: ["selection", "page"]
+  });
+
   await browser.storage.sync.set({
     enabled: true,
     speed: 300,
@@ -30,12 +62,10 @@ browser.runtime.onInstalled.addListener(async () => {
   })
 })
 
-browser.commands.onCommand.addListener(function(command) {
+browser.commands.onCommand.addListener((command) => {
   switch (command) {
     case 'activate-sutra':
-      chrome.tabs.executeScript({
-        file: 'injected-content.js'
-      });
+      activateSutra()
       break
   }
 });

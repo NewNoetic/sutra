@@ -1,3 +1,5 @@
+/* global sutraSelectedText */
+
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import React from 'react'
@@ -24,7 +26,14 @@ if (!wrapper) {
   wrapper.id = SUTRA_ELEMENT
   document.body.prepend(wrapper)
 }
-render(<Sutra />)
+
+if (typeof sutraSelectedText !== 'undefined') {
+  console.log(`injecting sutra content with selected text: ${sutraSelectedText}`)
+  render(<Sutra text={sutraSelectedText} />)
+} else {
+  render(<Sutra/>)
+}
+
 
   // const version = browser.runtime.getManifest().version
   // const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
