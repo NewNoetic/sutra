@@ -8,23 +8,29 @@ const setBadge = async (text) => {
   await browser.browserAction.setBadgeText({ text })
 }
 
-const activateSutra = (selection) => {
+const activateSutra = async (inNewTab, selectedText) => {
   console.log('activating sutra')
-  const injectContent = () => {
-    chrome.tabs.executeScript({
-      file: 'injected-content.js'
-    });
-  }
 
-  if (selection && typeof selection === 'string') {
-    console.log(`calling inject content script with selection: ${selection}`)
-    chrome.tabs.executeScript({
-      code: `var sutraSelectedText = "${selection}";`
-    }, injectContent)
-  } else {
-    injectContent()
+  try {
+    if (typeof selectedText === 'string') {
+      await browser.storage.sync.set({ selectedText })
+    }
+
+    if (inNewTab) {
+      await browser.tabs.create({url: chrome.extension.getURL('sutra.html')})
+    } else {
+      chrome.tabs.executeScript({
+        file: 'injected-content.js'
+      });
+    }
+  } catch (error) {
+    console.log(JSON.stringify(error))
   }
 }
+
+browser.runtime.onSuspend.addListener(async () => {
+  await browser.storage.sync.set({ selectedText: null })
+})
 
 browser.runtime.onInstalled.addListener(async () => {
   let extractEndpoint
@@ -40,14 +46,6 @@ browser.runtime.onInstalled.addListener(async () => {
       break
   }
 
-  chrome.contextMenus.onClicked.addListener((info) => {
-    switch(info.menuItemId) {
-      case 'sutra_activate':
-        activateSutra(info.selectionText)
-        break
-    }
-  })
-
   browser.contextMenus.create({
     id: "sutra_activate",
     title: "Activate Sutra",
@@ -60,6 +58,16 @@ browser.runtime.onInstalled.addListener(async () => {
     clientId: uuidv4(), // generate new id for each installation
     extractEndpoint
   })
+})
+
+chrome.contextMenus.onClicked.addListener((info) => {
+  switch(info.menuItemId) {
+    case 'sutra_activate':
+      // info.srcUrl has the pdf url
+      // info.selectionText has selected text
+      activateSutra(true, info.selectionText)
+      break
+  }
 })
 
 browser.commands.onCommand.addListener((command) => {

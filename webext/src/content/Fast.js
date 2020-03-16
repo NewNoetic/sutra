@@ -143,28 +143,30 @@ class Fast extends React.Component {
     const highlightIndex = word && calcHighlightPoint(word)
 
     return (
-      <div id="fast">
-        {
-          word &&
-          <div>
-            <div className="leftSide-fast">
-              {highlightIndex !== -1 && word.slice(0, highlightIndex)}
+      <div id='fast-wrapper'>
+        <div id="fast">
+          {
+            word &&
+            <div>
+              <div className="leftSide-fast">
+                {highlightIndex !== -1 && word.slice(0, highlightIndex)}
+              </div>
+              <div className="highlight-fast">
+                {highlightIndex === -1 ? word : word[highlightIndex]}
+              </div>
+              <div className="rightSide-fast">
+                {highlightIndex !== -1 && word.slice(highlightIndex + 1)}
+              </div>
             </div>
-            <div className="highlight-fast">
-              {highlightIndex === -1 ? word : word[highlightIndex]}
-            </div>
-            <div className="rightSide-fast">
-              {highlightIndex !== -1 && word.slice(highlightIndex + 1)}
-            </div>
-          </div>
-        }
-        {
-          word && this.props.startTimeout &&
-          <div
-            style={{ transition: `transform linear ${this.props.startTimeout}ms` }}
-            className={playing ? 'dimmer-hidden-fast' : 'dimmer-fast'}
-          ></div>
-        }
+          }
+          {
+            word && this.props.startTimeout &&
+            <div
+              style={{ transition: `transform linear ${this.props.startTimeout}ms` }}
+              className={playing ? 'dimmer-hidden-fast' : 'dimmer-fast'}
+            ></div>
+          }
+        </div>
       </div>
     )
   }

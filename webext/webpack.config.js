@@ -55,11 +55,16 @@ module.exports = {
       chunks: ['popup'],
       filename: 'popup.html'
     }),
+    new HTMLWebPackPlugin({
+      template: './src/content/sutra.html',
+      chunks: ['sutra'],
+      filename: 'sutra.html'
+    }),
     new ExtensionReloader({
-      config: 'webpack.dev.js',
       entries: {
         contentScript: 'injected-content',
-        extensionPage: 'popup'
+        background: 'background',
+        extensionPage: ['popup', 'options']
       },
       reloadPage: true
     })

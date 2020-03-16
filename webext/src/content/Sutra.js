@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Fast from './Fast'
 import browser from 'webextension-polyfill'
 
@@ -52,12 +51,13 @@ class Sutra extends React.Component {
     document.addEventListener('keydown', this.keydownHandler)
   }
 
-  componentWillUnmount() {
+  async componentWillUnmount() {
     document.removeEventListener('keydown', this.keydownHandler)
+    await browser.storage.sync.set({ selectedText: null })
   }
 
   async getText() {
-    let text = this.props.text // if we passed in text via injected-content.js
+    let text = (await browser.storage.sync.get('selectedText')).selectedText
 
     if (!text) { // if text was selected on the page
       text = document.getSelection().toString()
@@ -91,20 +91,13 @@ class Sutra extends React.Component {
         wpm={speed}
         text={text}
         playing={!paused}
-        onStop={() => {
+        onStop={async () => {
+          await browser.storage.sync.set({ selectedText: null })
           this.setState({ enabled: false, text: null })
         }}
       />
     )
   }
-}
-
-Sutra.defaultProps = {
-  text: null
-}
-
-Sutra.propTypes = {
-  text: PropTypes.string
 }
 
 export default Sutra
