@@ -13,7 +13,6 @@ const handler = async (req, res) => {
     return
   }
 
-  console.log(req.body.html)
   const data = extractor.lazy(req.body.html, 'en')
   res.json({text: data.text()})
 }
