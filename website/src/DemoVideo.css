@@ -1,0 +1,12 @@
+.phone-frame {
+  background-color: #333333;
+  padding: 25px 5px 25px 5px;
+  margin-top: 0px;
+  border-radius: 30px;
+  height: auto;
+}
+
+.phone-frame video {
+  max-width: 100%;
+  height: auto;
+}
