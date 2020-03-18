@@ -1,1 +1,1 @@
-module.exports = 'https://sutra.newnoetic.com/api/v1'
+module.exports = 'https://api.sutra.newnoetic.com/api/v1'

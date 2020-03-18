@@ -43,7 +43,7 @@ const main = async () => {
   })
 
   const api = path.join(__dirname, '../src/utils/api.js')
-  fs.writeFileSync(api, `module.exports = 'https://sutra.newnoetic.com/api/v${semver.major(nextVersion)}'\n`)
+  fs.writeFileSync(api, `module.exports = 'https://api.sutra.newnoetic.com/api/v${semver.major(nextVersion)}'\n`)
 
   await repo.add('.')
   const commit = await repo.commit(nextVersion)
