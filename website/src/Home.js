@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button/*, Card */} from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 // import Mailchimp from "./Mailchimp";
 import DemoVideo from "./DemoVideo";
 import AppIcon from "./AppIcon";
@@ -17,10 +16,10 @@ class Home extends Component {
                 width="auto"
               />
               <h1 className="mt-5">{Config.tagline}</h1>
-              <h5 className="mt-4" style={{ lineHeight: "2rem" }}>{Config.description}</h5>
-              <Button className="mt-5" variant="primary" size="lg" href="#">Get {Config.name}</Button>
+              <h5 className="mt-4 text-muted" style={{ lineHeight: "2rem" }}>{Config.description}</h5>
+              <Button className="mt-5" variant="dark" size="lg" href="#">Get {Config.name} <img height="40" width="auto" src="https://i.imgur.com/O7IrmYm.png?1" /></Button>
           </Col>
-          <Col className="mb-5 ml-5">
+          <Col className="my-5 ml-5">
             <DemoVideo />
           </Col>
         </Row>
