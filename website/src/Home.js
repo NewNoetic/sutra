@@ -17,7 +17,9 @@ class Home extends Component {
               />
               <h1 className="mt-5">{Config.tagline}</h1>
               <h5 className="mt-4 text-muted" style={{ lineHeight: "2rem" }}>{Config.description}</h5>
-              <Button className="mt-5" variant="dark" size="lg" href="#">Get {Config.name} <img height="40" width="auto" src="https://i.imgur.com/O7IrmYm.png?1" /></Button>
+              <Button className="mt-5" variant="dark" size="lg" href="https://chrome.google.com/webstore/detail/sutra/llikdmkcaejbdacikjgaejhbcphpkcco">
+                Get {Config.name} <img height="40" width="auto" src="https://i.imgur.com/O7IrmYm.png?1" />
+              </Button>
           </Col>
           <Col className="my-5 ml-5">
             <DemoVideo />
